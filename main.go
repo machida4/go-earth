@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/fs"
 	"log"
 	"net"
 	"net/http"
@@ -10,8 +11,8 @@ import (
 )
 
 const (
-	protocol = "unix"
-	address  = "/run/earth/web.sock"
+	protocol   = "unix"
+	socketPath = "/run/earth/web.sock"
 )
 
 func shutdown(listener net.Listener) {
@@ -35,7 +36,7 @@ func main() {
 	mux.HandleFunc("/", helloEarth)
 
 	log.Println("Listening...")
-	listener, err := net.Listen(protocol, address)
+	listener, err := net.Listen(protocol, socketPath)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
@@ -45,7 +46,22 @@ func main() {
 		}
 	}()
 
-	shutdown(listener)
+	// ソケットはデフォルトだと同じユーザーしか使えないのでNginxが使えるようにしておく
+	err = os.Chmod(socketPath, fs.ModePerm)
+	if err != nil {
+		log.Printf("error: %v", err)
+	}
+
+	go func() {
+		sig := make(chan os.Signal, 2)
+		signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
+		<-sig
+		if err := listener.Close(); err != nil {
+			log.Printf("error: %v", err)
+		}
+		os.Exit(1)
+	}()
+
 	if err := http.Serve(listener, mux); err != nil {
 		log.Fatalf("error: %v", err)
 	}
