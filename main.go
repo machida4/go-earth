@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/http/fcgi"
 	"os"
 	"os/signal"
 	"syscall"
@@ -52,7 +53,7 @@ func main() {
 	}()
 
 	log.Println("Mother Earth is carefully Listening...")
-	if err := http.Serve(listener, mux); err != nil {
+	if err := fcgi.Serve(listener, mux); err != nil {
 		log.Fatalf("error: %v", err)
 	}
 }
