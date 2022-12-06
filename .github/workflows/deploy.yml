@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Test
-        run: go test -v ./...
+      run: go test -v ./...
 
   deploy:
     needs: [setup, build, test]
