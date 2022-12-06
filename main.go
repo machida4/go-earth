@@ -17,7 +17,7 @@ const (
 )
 
 func helloEarth(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, Earth❤"))
+	w.Write([]byte("Hello, Earth❤❤❤"))
 }
 
 func main() {
