@@ -37,6 +37,4 @@ jobs:
         script: |
           cd go_earth
           git pull
-          go build ./...
-          sudo systemctl restart GoEarth.service
-
+          echo ${{ secrets.PASSWORD }} | sudo -S make deploy
