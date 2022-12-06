@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-deploy: ## deploy all
+deploy: ## Deploy all
 	@make -s app-deploy
 	@make -s nginx-deploy
 
