@@ -1,15 +1,14 @@
 .DEFAULT_GOAL := help
 
-deploy: ## Deploy all
-	@make -s app-deploy
-	@make -s nginx-deploy
+deploy: app-deploy nginx-deploy ## Deploy all
+	@echo "Done: deploy"
 
 app-deploy: ## Deploy Go App
 	@echo "Restart Go App"
 	@sudo systemctl daemon-reload
 	@sudo systemctl restart GoEarth.service
 	@echo "Done: app-deploy"
-
+d
 nginx-deploy: ## Deploy nginx
 	@echo "Replace conf files"
 	@sudo cp nginx/nginx.conf /etc/nginx/nginx.conf
