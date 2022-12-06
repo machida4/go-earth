@@ -23,7 +23,7 @@ jobs:
         run: go test -v ./...
 
   deploy:
-    needs: [setup, build, test]
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - name: Generate ssh key
