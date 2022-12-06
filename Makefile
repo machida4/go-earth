@@ -11,7 +11,7 @@ app-deploy: ## Deploy Go App
 	@echo "Done: app-deploy"
 
 nginx-deploy: ## Deploy nginx
-	@sudo "Replace conf files"
+	@echo "Replace conf files"
 	@sudo cp nginx/nginx.conf /etc/nginx/nginx.conf
 	@sudo cp nginx/sites-available/earth /etc/nginx/sites-available/earth
 	@echo "Validate nginx.conf"
