@@ -5,12 +5,19 @@ deploy: ## Deploy all
 	@make -s nginx-deploy
 
 app-deploy: ## Deploy Go App
+	@sudo "Restart Go App"
 	@sudo systemctl daemon-reload
 	@sudo systemctl restart GoEarth.service
 	@echo "Done: app-deploy"
 
 nginx-deploy: ## Deploy nginx
+	@sudo "Replace conf files"
+	@sudo cp nginx/nginx.conf /etc/nginx/nginx.conf
+	@sudo cp nginx/sites-available/earth /etc/nginx/sites-available/earth
+	@echo "Validate nginx.conf"
 	@sudo nginx -t
+	@sudo "Restart nginx"
+	@sudo systemctl daemon-reload
 	@sudo systemctl restart nginx
 	@echo "Done: nginx-deploy"
 
