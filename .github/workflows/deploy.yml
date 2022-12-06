@@ -37,4 +37,5 @@ jobs:
         script: |
           cd go_earth
           git pull
+          go build ./...
           echo ${{ secrets.PASSWORD }} | sudo -S make deploy
