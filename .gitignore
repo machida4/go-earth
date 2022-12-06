@@ -1,8 +1,4 @@
 # Binaries for programs and plugins
-*
-!*/
-!*.*
-!Makefile
 *.exe
 *.exe~
 *.dll
@@ -17,3 +13,6 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# ビルド後のバイナリをignore
+go_earth
