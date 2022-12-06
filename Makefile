@@ -6,7 +6,6 @@ deploy: ## Deploy all
 
 app-deploy: ## Deploy Go App
 	@echo "Restart Go App"
-	@go build ./...
 	@sudo systemctl daemon-reload
 	@sudo systemctl restart GoEarth.service
 	@echo "Done: app-deploy"
